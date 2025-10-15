@@ -49,7 +49,8 @@ class OuvrageResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('editeur')
                     ->maxLength(255),
-                Forms\Components\DatePicker::make('date_publication'),
+                Forms\Components\DatePicker::make('date_publication')
+                    ->native(false),
                 Forms\Components\TextInput::make('nombre_pages')
                     ->numeric(),
                 Forms\Components\TextInput::make('langue')
@@ -59,9 +60,8 @@ class OuvrageResource extends Resource
                     ->maxLength(20),
                 Forms\Components\TextInput::make('taille_fichier')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('chemin_fichier')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('chemin_fichier')
+                    ->label('Fichier'),
             ]);
     }
 

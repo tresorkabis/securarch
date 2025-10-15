@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('langue')->nullable();
             $table->string('format_fichier', 20); // PDF, DOCX, etc.
             $table->string('taille_fichier')->nullable();
-            $table->string('chemin_fichier');
+            $table->string('chemin_fichier')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
