@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TypeFichier extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nom'
+    ];
+
+    public function fichiers()
+    {
+        return $this->hasMany(Fichier::class);
+    }
 }

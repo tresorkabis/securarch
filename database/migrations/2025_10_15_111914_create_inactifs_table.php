@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nom', 50)->nullable();
             $table->string('postnom', 50)->nullable();
             $table->string('prenom', 50)->nullable();
+            $table->string('sexe')->nullable();
             $table->integer('anneedeces')->default(0);
             $table->text('observation')->nullable();
             $table->foreignId('grade_id')->nullable()->constrained('grades')->onDelete('set null');

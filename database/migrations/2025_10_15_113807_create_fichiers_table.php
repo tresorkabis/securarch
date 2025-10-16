@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('type_fichier_id')->nullable()->constrained('type_fichiers')->onDelete('set null');
             $table->text('fichier')->nullable();
+            $table->foreignId('inactif_id')->nullable()->constrained('inactifs')->onDelete('set null');
             $table->timestamps();
         });
     }

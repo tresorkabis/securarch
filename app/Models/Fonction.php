@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Fonction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name'
+    ];
+
+    public function inactifs()
+    {
+        return $this->hasMany(Inactif::class);
+    }
 }
