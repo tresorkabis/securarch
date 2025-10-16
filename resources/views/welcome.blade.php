@@ -11,7 +11,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwindcss.js"></script>
+    <link href="http://127.0.0.1:8000/css/tailwind.min.css" rel="stylesheet">
 
     <!-- Styles personnalisés -->
     <style>
