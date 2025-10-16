@@ -48,7 +48,7 @@
                 </div>
 
                 <!-- Bouton d'action principal -->
-                <a href="http://securarch.test/dashboard"
+                <a href="/dashboard"
                     class="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 transform hover:scale-105">
                     Accéder à SecurArch
                 </a>
