@@ -29,25 +29,18 @@ class FichierResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('type_fichier_id')
-                    ->numeric(),
-                Forms\Components\Textarea::make('fichier')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('inactif_id')
-                    ->numeric(),
-            ]);
+            ->schema(self::getFichierForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type_fichier_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('type_fichier.nom')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('inactif_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('inactif_full_name')
+                    ->label('Agent')
+                    ->getStateUsing(fn($record) => $record->inactif?->nom . ' ' . $record->inactif?->prenom . ' (' . $record->inactif?->matricule . ')')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -84,6 +77,33 @@ class FichierResource extends Resource
             'index' => Pages\ListFichiers::route('/'),
             'create' => Pages\CreateFichier::route('/create'),
             'edit' => Pages\EditFichier::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getFichierForm(): array
+    {
+        return [
+            Forms\Components\FileUpload::make('fichier')
+                ->label('Fichier')
+                ->directory('documents/')
+                ->preserveFilenames()
+                ->downloadable()
+                ->openable()
+                ->required()
+                ->maxSize(5120),
+            Forms\Components\Select::make('type_fichier_id')
+                ->label('Type de fichier')
+                ->relationship('type_fichier', 'nom')
+                ->searchable()
+                ->preload()
+                ->required(),
+            Forms\Components\Select::make('inactif_id')
+                ->label('Inactif')
+                ->relationship('inactif', 'matricule', modifyQueryUsing: fn($query) => $query->whereNotNull('matricule'))
+                ->getOptionLabelFromRecordUsing(fn($record) => "{$record->prenom} {$record->nom} ({$record->matricule})")
+                ->searchable()
+                ->preload()
+                ->native(false),
         ];
     }
 }

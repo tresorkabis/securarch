@@ -17,7 +17,9 @@ class Inactif extends Model
         'fonction_id',
         'grade_id',
         'observation',
-        'anneedeces'
+        'anneedeces',
+        'province',
+        'status'
     ];
 
     public function fonction()

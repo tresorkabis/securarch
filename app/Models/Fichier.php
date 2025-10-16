@@ -14,13 +14,13 @@ class Fichier extends Model
         'inactif_id'
     ];
 
-    public function typefichier()
+    public function type_fichier()
     {
         return $this->belongsTo(TypeFichier::class);
     }
 
-    public function fichier()
+    public function inactif()
     {
-        return $this->belongsTo(Fichier::class);
+        return $this->belongsTo(Inactif::class);
     }
 }

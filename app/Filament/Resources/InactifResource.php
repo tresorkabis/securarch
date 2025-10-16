@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\InactifResource\Pages;
 use App\Filament\Resources\InactifResource\RelationManagers;
+use App\Filament\Resources\InactifResource\RelationManagers\FichiersRelationManager;
 use App\Models\Inactif;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -45,8 +46,20 @@ class InactifResource extends Resource
                     ->numeric()
                     ->label('Année de décès')
                     ->default(0),
-                Forms\Components\Textarea::make('observation')
-                    ->columnSpanFull(),
+                Forms\Components\Select::make('province')
+                    ->options(config('provinces'))
+                    ->searchable()
+                    ->placeholder('Sélectionnez une province'),
+                Forms\Components\Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'deces' => 'Décès',
+                        'classe' => 'Classé',
+                        'autre' => 'Autre'
+                    ])
+                    ->searchable()
+                    ->placeholder('Sélectionnez le status')
+                    ->required(),
                 Forms\Components\Select::make('grade_id')
                     ->label("Grade")
                     ->relationship('grade', 'name')
@@ -57,6 +70,8 @@ class InactifResource extends Resource
                     ->relationship('fonction', 'name')
                     ->searchable()
                     ->preload(),
+                Forms\Components\Textarea::make('observation')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -109,7 +124,7 @@ class InactifResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            FichiersRelationManager::class,
         ];
     }
 
