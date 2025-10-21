@@ -139,7 +139,7 @@ class AgentResource extends Resource
     {
         return [
             'index' => Pages\ListAgents::route('/'),
-            'view' => Pages\ViewAgent::route('/{record}'),
+            'view' => Pages\ViewAgent::route('/{record}/view'),
             'create' => Pages\CreateAgent::route('/create'),
             'edit' => Pages\EditAgent::route('/{record}/edit'),
         ];
