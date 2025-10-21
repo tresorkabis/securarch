@@ -46,19 +46,14 @@ class AgentResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('prenom')
-                            ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('sexe')
-                            ->required()
-                            ->maxLength(255),
+                        Forms\Components\Select::make('sexe')
+                            ->options(['F' => 'Féminin', 'M' => 'Masculin', 'ND' => 'Non défini']),
                         Forms\Components\TextInput::make('fonction')
-                            ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                            ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('telephone')
-                            ->required()
                             ->maxLength(255),
                     ])->columns(3),
             ]);
