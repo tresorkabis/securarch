@@ -39,26 +39,33 @@ class RapportResource extends Resource
                             ->relationship('typeRapport', 'nom')
                             ->native(false)
                             ->required(),
+                        Forms\Components\Select::make('agent_id')
+                            ->required()
+                            ->relationship('agent', 'matricule', modifyQueryUsing: fn($query) => $query->whereNotNull('matricule'))->getOptionLabelFromRecordUsing(fn($record) => "{$record->prenom} {$record->nom} {$record->postnom} ({$record->matricule})")
+                            ->searchable()
+                            ->native(false)
+                            ->preload(),
+                        Forms\Components\Select::make('pays')
+                            ->options($countryService->getCountries())
+                            ->searchable()
+                            ->preload()
+                            ->native(false),
                         Forms\Components\TextInput::make('intitule')
                             ->required()
+                            ->columnSpanFull()
                             ->maxLength(255),
+                        Forms\Components\Select::make('annee')
+                            ->label("Année")
+                            ->options(
+                                collect(range(now()->year, 1950))->mapWithKeys(fn($y) => [$y => $y])->toArray()
+                            )->searchable()
+                            ->required(),
                         Forms\Components\DatePicker::make('debut_periode')
                             ->native(false)
                             ->required(),
                         Forms\Components\DatePicker::make('fin_periode')
                             ->native(false)
                             ->required(),
-                        Forms\Components\Select::make('agent_id')
-                            ->relationship('agent', 'nom')
-                            ->searchable()
-                            ->preload()
-                            ->native(false)
-                            ->required(),
-                        Forms\Components\Select::make('pays')
-                            ->options($countryService->getCountries())
-                            ->searchable()
-                            ->preload()
-                            ->native(false),
                         Forms\Components\FileUpload::make('fichier')
                             ->directory('rapports')
                             ->preserveFilenames()

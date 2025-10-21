@@ -140,8 +140,8 @@ class AgentResource extends Resource
         return [
             'index' => Pages\ListAgents::route('/'),
             'view' => Pages\ViewAgent::route('/{record}'),
-            // 'create' => Pages\CreateAgent::route('/create'),
-            // 'edit' => Pages\EditAgent::route('/{record}/edit'),
+            'create' => Pages\CreateAgent::route('/create'),
+            'edit' => Pages\EditAgent::route('/{record}/edit'),
         ];
     }
 }
