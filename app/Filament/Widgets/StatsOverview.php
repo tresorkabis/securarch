@@ -2,9 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Auteur;
-use App\Models\Domaine;
-use App\Models\Ouvrage;
+use App\Models\Inactif;
+use App\Models\Decision;
+use App\Models\Agent;
 use App\Models\Rapport;
 use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -18,24 +18,24 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Ouvrages', Ouvrage::count())
-                ->description('Total des documents')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->chart($this->getChartData(Ouvrage::class))
+            Stat::make('Agents', Agent::count())
+                ->description('Nbre total des agents')
+                ->descriptionIcon('heroicon-m-users')
+                ->chart($this->getChartData(Agent::class))
                 ->color('success')
-                ->icon('heroicon-o-book-open'),
+                ->icon('heroicon-o-users'),
 
-            Stat::make('Auteurs', Auteur::count())
-                ->description('Contributeurs actifs')
-                ->descriptionIcon('heroicon-m-user-group')
-                ->chart($this->getChartData(Auteur::class))
+            Stat::make('Inactifs', Inactif::count())
+                ->description('Les Inactifs')
+                ->descriptionIcon('heroicon-m-user-circle')
+                ->chart($this->getChartData(Inactif::class))
                 ->color('primary')
-                ->icon('heroicon-o-user-group'),
+                ->icon('heroicon-o-user-circle'),
 
-            Stat::make('Domaines', Domaine::count())
-                ->description('Domaines des ouvrages')
+            Stat::make('Décisions', Decision::count())
+                ->description('Les Décisions')
                 ->descriptionIcon('heroicon-m-folder')
-                ->chart($this->getChartData(Domaine::class))
+                ->chart($this->getChartData(Decision::class))
                 ->color('warning')
                 ->icon('heroicon-o-folder'),
 
