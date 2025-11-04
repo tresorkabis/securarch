@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AgentResource\Pages;
 use App\Filament\Resources\AgentResource\RelationManagers;
+use App\Filament\Resources\AgentResource\RelationManagers\NotificationsRelationManager;
 use App\Filament\Resources\AgentResource\RelationManagers\RapportsRelationManager;
 use App\Models\Agent;
 use App\Services\AgentImportService;
@@ -49,8 +50,23 @@ class AgentResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Select::make('sexe')
                             ->options(['F' => 'Féminin', 'M' => 'Masculin', 'ND' => 'Non défini']),
+                        Forms\Components\Select::make('status')
+                            ->options(['Actif', 'Inactif', 'Décédé', 'Revoqué', 'Mise en disponibilité', 'Détachement', 'Retraité']),
                         Forms\Components\TextInput::make('fonction')
                             ->maxLength(255),
+                        Forms\Components\Select::make('fonction_id')
+                            ->relationship('fonction', 'name')
+                            ->native(false),
+                        Forms\Components\Select::make('grade_id')
+                            ->relationship('grade', 'name')
+                            ->native(false),
+                        Forms\Components\Select::make('direction_id')
+                            ->relationship('direction', 'name')
+                            ->native(false),
+                        Forms\Components\Select::make('province_id')
+                            ->relationship('province', 'name')
+                            ->label("Province d'affectation")
+                            ->native(false),
                         Forms\Components\TextInput::make('email')
                             ->maxLength(255),
                         Forms\Components\TextInput::make('telephone')
@@ -90,30 +106,32 @@ class AgentResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->headerActions([
-                Tables\Actions\Action::make('import')
-                    ->label('Actualiser la liste des agents')
-                    ->icon('heroicon-o-arrow-path')
-                    ->color('info')
-                    ->action(function (array $data): void {
-                        $importSerice = app(AgentImportService::class);
-                        $result = $importSerice->importAgents();
+            ->headerActions(
+                [
+                    // Tables\Actions\Action::make('import')
+                    //     ->label('Actualiser la liste des agents')
+                    //     ->icon('heroicon-o-arrow-path')
+                    //     ->color('info')
+                    //     ->action(function (array $data): void {
+                    //         $importSerice = app(AgentImportService::class);
+                    //         $result = $importSerice->importAgents();
 
-                        if ($result['success']) {
-                            Notification::make()
-                                ->title('Importation réussie')
-                                ->body($result['message'] . ' (' . $result['count'] . ' agents importés)')
-                                ->success()
-                                ->send();
-                        } else {
-                            Notification::make()
-                                ->title('Erreur d\'importation')
-                                ->body($result['message'])
-                                ->danger()
-                                ->send();
-                        }
-                    })
-            ])
+                    //         if ($result['success']) {
+                    //             Notification::make()
+                    //                 ->title('Importation réussie')
+                    //                 ->body($result['message'] . ' (' . $result['count'] . ' agents importés)')
+                    //                 ->success()
+                    //                 ->send();
+                    //         } else {
+                    //             Notification::make()
+                    //                 ->title('Erreur d\'importation')
+                    //                 ->body($result['message'])
+                    //                 ->danger()
+                    //                 ->send();
+                    //         }
+                    //     })
+                ]
+            )
             ->filters([
                 //
             ])
@@ -132,6 +150,7 @@ class AgentResource extends Resource
     {
         return [
             RapportsRelationManager::class,
+            NotificationsRelationManager::class
         ];
     }
 

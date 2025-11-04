@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
         $result = $importSerice->importAgents();
 
         $this->call(TypeRapportSeeder::class);
-        $this->call(DomaineSeeder::class);
-        Auteur::factory(20)->create();
-        Ouvrage::factory(50)->create();
-        Rapport::factory(100)->create();
+        // $this->call(DomaineSeeder::class);
+        // Auteur::factory(20)->create();
+        // Ouvrage::factory(50)->create();
+        // Rapport::factory(100)->create();
     }
 }
