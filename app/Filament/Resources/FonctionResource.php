@@ -17,9 +17,9 @@ class FonctionResource extends Resource
 {
     protected static ?string $model = Fonction::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
-    protected static ?string $navigationGroup = 'Gestion des agents';
+    protected static ?string $navigationGroup = 'Paramètres';
 
     public static function form(Form $form): Form
     {
