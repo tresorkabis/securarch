@@ -67,7 +67,7 @@ class RapportResource extends Resource
                             ->native(false)
                             ->required(),
                         Forms\Components\FileUpload::make('fichier')
-                            ->directory('rapports')
+                            ->directory('rapports/')
                             ->preserveFilenames()
                             ->openable()
                             ->downloadable()
