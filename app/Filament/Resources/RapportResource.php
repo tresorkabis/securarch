@@ -71,6 +71,7 @@ class RapportResource extends Resource
                             ->preserveFilenames()
                             ->openable()
                             ->downloadable()
+                            ->maxSize(5120)
                             ->columnSpanFull(),
                     ])
                     ->columns(3),
