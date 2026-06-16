@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'name' => 'Administrateur',
-            'email' => 'admin@securarch.test',
+            'email' => 'admin@cnpri.cd',
         ]);
 
         $importSerice = app(AgentImportService::class);
